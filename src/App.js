@@ -17,25 +17,19 @@ const List = ({ list }) => {
 };
 
 const Search = ({ onSearch }) => {
-	const [searchTerm, setSearchTerm] = react.useState("");
-
-	const handleChange = (event) => {
-		//setSearchTerm(event.target.value);
-		onSearch(event);
-	};
-
 	return (
 		<>
 			<label htmlFor="search">Search: </label>
-			<input id="search" type="text" onChange={handleChange} />
-			<p>Searching for {searchTerm}</p>
+			<input id="search" type="text" onChange={onSearch} />
 		</>
 	);
 };
 
 const App = () => {
+	const [searchTerm, setSearchTerm] = react.useState("");
+
 	const handleSearch = (event) => {
-		console.log(event.target.value);
+		setSearchTerm(event.target.value);
 	};
 
 	const stories = [
@@ -57,13 +51,17 @@ const App = () => {
 		},
 	];
 
+	const searchedStories = stories.filter((story) => {
+		return story.title.toLowerCase().includes(searchTerm.toLowerCase());
+	});
+
 	return (
 		<div>
 			<h1>My Hacker Stories</h1>
 			<Search onSearch={handleSearch} />
 			<hr />
 			{/* Render List Below */}
-			<List list={stories} />
+			<List list={searchedStories} />
 		</div>
 	);
 };
