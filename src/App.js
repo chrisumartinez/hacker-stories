@@ -2,9 +2,9 @@ import react from "react";
 import "./App.css";
 
 const List = ({ list }) => {
-	return list.map((item) => {
+	const Item = ({ item }) => {
 		return (
-			<div key={item.objectID}>
+			<div>
 				<span>
 					<a href={item.url}>{item.title}</a>
 				</span>
@@ -13,14 +13,18 @@ const List = ({ list }) => {
 				<span>{item.points}</span>
 			</div>
 		);
+	};
+
+	return list.map((item) => {
+		return <Item key={item.objectID} item={item} />;
 	});
 };
 
-const Search = ({ onSearch }) => {
+const Search = ({ search, onSearch }) => {
 	return (
 		<>
 			<label htmlFor="search">Search: </label>
-			<input id="search" type="text" onChange={onSearch} />
+			<input id="search" type="text" value={search} onChange={onSearch} />
 		</>
 	);
 };
