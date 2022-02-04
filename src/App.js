@@ -30,10 +30,13 @@ const Search = ({ search, onSearch }) => {
 };
 
 const App = () => {
-	const [searchTerm, setSearchTerm] = react.useState("");
+	const [searchTerm, setSearchTerm] = react.useState(
+		localStorage.getItem("search") || "React"
+	);
 
 	const handleSearch = (event) => {
 		setSearchTerm(event.target.value);
+		localStorage.setItem(searchTerm);
 	};
 
 	const stories = [
